@@ -31,12 +31,56 @@ def handle_hello():
     # this is how you can use the Family datastructure by calling its methods
     members = jackson_family.get_all_members()
     response_body = {
-        "hello": "world",
-        "family": members
+    "family": members
     }
 
-
     return jsonify(response_body), 200
+
+@app.route('/members', methods=['POST'])
+def add_someone():
+     
+        request_body=request.json
+        members = jackson_family.add_member(request_body)
+        return jsonify(f"sucess"), 200
+     
+@app.route('/members/<int:id>', methods=['GET'])
+def get_singlechar(id):
+
+    # this is how you can use the Family datastructure by calling its methods
+    member = jackson_family.get_member(id)
+    if member == None:
+      return jsonify('This user doesnt exist'), 410
+    else:        
+        return jsonify(member), 200  
+
+
+@app.route('/members/<int:id>', methods=['DELETE'])
+def get_DELETECHAR(id):
+
+    # this is how you can use the Family datastructure by calling its methods
+    member = jackson_family.delete_member(id)
+    if member == None:
+      return jsonify('This user doesnt exist'), 410
+    else:        
+        response_body = member
+        return jsonify(member), 200  
+     
+
+
+@app.route('/members/<int:id>', methods=['PUT'])
+def get_lucky(id):
+
+    # this is how you can use the Family datastructure by calling its methods
+    request_body=request.json
+    member = jackson_family.lucky_member(id, request_body)
+    if member == None:
+       return jsonify('This user doesnt exist'), 410
+    else:        
+        
+        return jsonify(member), 200  
+
+
+
 
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':

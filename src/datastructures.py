@@ -1,4 +1,3 @@
-
 """
 update this file to implement the following already declared methods:
 - add_member: Should add a member to the self._members list
@@ -12,24 +11,67 @@ class FamilyStructure:
     def __init__(self, last_name):
         self.last_name = last_name
 
+        
+
         # example list of members
-        self._members = []
+        self._members = [
+            
+            {"id": self._generateId(),
+             "age": "23 years old",
+            "first_name": "Joe",
+            "last_name": "Jackson",
+            "lucky_number":(7,7,7)
+            }
+
+            ]
 
     # read-only: Use this method to generate random members ID's when adding members into the list
     def _generateId(self):
         return randint(0, 99999999)
 
-    def add_member(self, member):
+    def add_member(self, memb):
         # fill this method and update the return
-        pass
+        memb['id']=self._generateId()
+        self._members.append(memb)
+      
+     
+        return self._members
 
     def delete_member(self, id):
+        x = None
         # fill this method and update the return
-        pass
+        for i, elm in enumerate(self._members):
+            if elm['id'] == id:
+                self._members.pop(i)
+                x=self._members
+          
+               
+        return x
+              
+            
+        
 
-    def get_member(self, id):
+    def get_member(self, t):
         # fill this method and update the return
-        pass
+        x=None
+        for elm in self._members:
+            if elm['id'] == t:
+               x=elm
+        return x
+        
+            
+    def lucky_member(self, t, newval):
+        # fill this method and update the return
+        x=None 
+        for elm in self._members:
+            if elm['id'] == t:
+               elm['lucky_numbers']=newval['lucky_number']
+               x=self._members
+          
+        return  x
+            
+
+        
 
     # this method is done, it returns a list with all the family members
     def get_all_members(self):
